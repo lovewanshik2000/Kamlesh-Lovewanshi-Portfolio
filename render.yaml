@@ -1,0 +1,25 @@
+# ==============================================================================
+# Render Blueprint Specification — Free Tier Web Service
+# ==============================================================================
+services:
+  - type: web
+    name: kamlesh-portfolio-backend
+    runtime: python
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: ENVIRONMENT
+        value: production
+      - key: FRONTEND_URL
+        value: https://kamlesh-lovewanshi-portfolio.vercel.app
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
